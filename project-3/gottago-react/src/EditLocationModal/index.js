@@ -9,34 +9,34 @@ const EditLocationModal = (props) => {
             <Modal.Content>
                 <Form onSubmit={props.closeAndEdit}>
                 <Label>Restroom Name</Label>
-                    <Form.Input type='text' name='loc_name' value={this.state.loc_name} onChange={this.handleChange}/>
+                    <Form.Input type='text' name='loc_name' value={props.locationToEdit.loc_name} onChange={props.handleChange}/>
 
                     <Label>Street Number</Label>
-                    <Form.Input type='text' name='street_num' value={this.state.street_num} onChange={this.handleChange}/>
+                    <Form.Input type='text' name='street_num' value={props.locationToEdit.street_num} onChange={props.handleChange}/>
 
                     <Label>Street Name</Label>
-                    <Form.Input type='text' name='street_name' value={this.state.street_name} onChange={this.handleChange}/>
+                    <Form.Input type='text' name='street_name' value={props.locationToEdit.street_name} onChange={props.handleChange}/>
 
                     <Label>Apt or Unit #</Label>
-                    <Form.Input type='text' name='apt_unit_num' value={this.state.apt_unit_num} onChange={this.handleChange}/>
+                    <Form.Input type='text' name='apt_unit_num' value={props.locationToEdit.apt_unit_num} onChange={props.handleChange}/>
 
                     <Label>City</Label>
-                    <Form.Input type='text' name='city' value={this.state.city} onchange={this.handleChange}/>
+                    <Form.Input type='text' name='city' value={props.locationToEdit.city} onchange={props.handleChange}/>
 
                     <Label>State</Label>
-                    <Form.Input type='text' name='State' value={this.state.State} onChange={this.handleChange}/>
+                    <Form.Input type='text' name='State' value={props.locationToEdit.State} onChange={props.handleChange}/>
 
                     <Label>Zipcode</Label>
-                    <Form.Input type='text' name='zipcode' value={this.state.zipcode} onChange={this.handleChange}/>
+                    <Form.Input type='text' name='zipcode' value={props.locationToEdit.zipcode} onChange={props.handleChange}/>
                     
                     <Label>Opens at:</Label>
-                    <Form.Input type='text' name='open_time' value={this.state.open_time} onChange={this.handleChange}/>
+                    <Form.Input type='text' name='open_time' value={props.locationToEdit.open_time} onChange={props.handleChange}/>
 
                     <Label>Closes at:</Label>
-                    <Form.Input type='text' name='closing_time' value={this.state.closing_time} onChange={this.handleChange}/>
+                    <Form.Input type='text' name='closing_time' value={props.locationToEdit.closing_time} onChange={props.handleChange}/>
 
                     <Label>Directions</Label>
-                    <Form.Input type='text' name='Directions' value={this.state.Directions} onChange={this.handleChange}/>
+                    <Form.Input type='text' name='Directions' value={props.locationToEdit.Directions} onChange={props.handleChange}/>
                        
                     <Label>ADA Compliant?</Label>
                     <div className="ada-radio">
@@ -46,7 +46,7 @@ const EditLocationModal = (props) => {
                                 name='ada' 
                                 value='true' 
                                 checked={ada === true}
-                                onChange={this.handleAdaRadio} />
+                                onChange={props.handleAdaRadio} />
                                 YES
                         </Label>
                     </div>
@@ -57,7 +57,7 @@ const EditLocationModal = (props) => {
                                 name='ada'
                                 value='false'
                                 checked={ada === false}
-                                onChange={this.handleAdaRadio}/>
+                                onChange={props.handleAdaRadio}/>
                                 NO
                         </Label>
                     </div>
@@ -69,7 +69,7 @@ const EditLocationModal = (props) => {
                                 name='unisex'
                                 value='true'
                                 checked={unisex === true}
-                                onChange={this.handleUnisexRadio}/>
+                                onChange={props.handleUnisexRadio}/>
                                 YES
                         </Label>
                     </div>
@@ -80,7 +80,7 @@ const EditLocationModal = (props) => {
                                 name='unisex'
                                 value='false'
                                 checked={unisex === false}
-                                onChange={this.handleUnisexRadio}/>
+                                onChange={props.handleUnisexRadio}/>
                                 NO
                         </Label>
                     </div>
