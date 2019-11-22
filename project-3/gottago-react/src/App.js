@@ -1,14 +1,14 @@
 import React from 'react';
 import Register from './Register'
-// import MapContainer from './MapContainer'
-// import { Route, Switch } from 'react-router-dom'
-// import Header from './Header'
+import MapContainer from './MapContainer'
+import { Route, Switch } from 'react-router-dom'
+import Header from './Header'
 import './App.css';
 
 const My404 = () => {
   return (
     <div>
-      You are Lost 
+      You are Lost. Go back now!
     </div>
   )
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LocationList from '../LocationList';
+import LocationList from '../../LocationList';
 import CreateLocationForm from '../CreateLocationFrom';
 import { Grid, GridColumn } from 'semantic-ui-react';
 import EditLocationModal from '../EditLocationModal';
