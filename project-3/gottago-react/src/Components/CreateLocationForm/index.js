@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Button, Label, Segment } from 'semantic-ui-react'
-
+import LocationContainer from '../LocationContainer/index'
 class CreateLocation extends Component { 
     constructor(){
         super(); 
@@ -51,8 +51,10 @@ class CreateLocation extends Component {
 
     hideForm = () => {
         this.setState({formActive: false})
+        console.log(this.addLocation())
     }
 
+    
 
     checkFormDisplay = () => {
         if(this.state.formActive === false) {
@@ -63,12 +65,39 @@ class CreateLocation extends Component {
         }
     }
 
+    newLocation = async (e, location) => {
+        console.log('Test')
+        // e.preventDefault();
+        console.log('HITTING')
+    
+        try {
+            const createdLocationResponse = await fetch
+            (process.env.REACT_APP_API_URL + '/api/v1/locations', {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify(location),
+                headers: {
+                    "Content-Type": "application/JSON"
+                }
+            });
+            const parsedLocation = await createdLocationResponse.json();
+            console.log(parsedLocation, "This is location response")
+            //put locations living in state into a new array,
+            this.setState({locations: [...this.state.locations, parsedLocation.data]})
+        } catch(err){
+            console.log("error")
+            console.log(err)
+
+    }
+    }
+
     renderForm() {
             return (
                 <Segment>
                     
                     <h4>Add a New Restroom</h4>
-                    <Form onSubmit={(e) => this.props.addLocation(e, this.state)}>
+                    {/* <Form onSubmit={(e) => this.props.addLocation(e, this.state)}> */}
+                    <Form onSubmit={() => {this.newLocation()}}>
                         <Label>Restroom Name</Label>
                         <Form.Input type='text' name='loc_name' value={this.state.loc_name} onChange={this.handleChange}/>
     
@@ -108,7 +137,7 @@ class CreateLocation extends Component {
                                     name='ada' 
                                     value='true' 
                                     checked={this.handleAdaRadio.ada === true}
-                                    onChange={this.handleAdaRadio} />
+                                    onChange={this.props.handleAdaRadio} />
                                     YES
                             </Label>
                         </div>
@@ -146,7 +175,7 @@ class CreateLocation extends Component {
                                     NO
                             </Label>
                         </div>
-                            <Button type='submit' onClick={() => {this.hideForm()}}>Submit</Button>
+                            <Button type='submit'>Submit</Button>
                             <Button typy='discard' onClick={() => {this.hideForm()}}>Discard</Button>
                     </Form>
                 </Segment>
