@@ -24,15 +24,15 @@ class CreateLocation extends Component {
         this.handleUnisexRadio = this.handleUnisexRadio.bind(this);
     }
     // event handler for ADA compliance true/false 
-    handleAdaRadio =(e) => {
-        const isAda = event.currentTarget.value === 'true' ? true: false;
-        console.log('handle', ada)
-        this.setState({ada});
+    handleAdaRadio = (e) => {
+        const isAda = e.currentTarget.value === 'true' ? true: false;
+        console.log('handle', this.ada)
+        this.setState(this.ada);
     }
     handleUnisexRadio = (e) => {
-        const isUnisex = event.currentTarget.value === 'true' ? true: false;
-        console.log('handle', unisex)
-        this.setState({unisex});
+        const isUnisex = e.currentTarget.value === 'true' ? true: false;
+        console.log('handle', this.unisex)
+        this.setState(this.unisex);
     }
     handleChange = (e) => { 
         this.setState({[e.currentTarget.name]: e.currentTarget.value})
@@ -84,7 +84,7 @@ class CreateLocation extends Component {
                                 type='radio' 
                                 name='ada' 
                                 value='true' 
-                                checked={ada === true}
+                                checked={this.handleAdaRadio.ada === true}
                                 onChange={this.handleAdaRadio} />
                                 YES
                         </Label>
@@ -95,7 +95,7 @@ class CreateLocation extends Component {
                                 type='radio'
                                 name='ada'
                                 value='false'
-                                checked={ada === false}
+                                checked={this.handleAdaRadio.ada === false}
                                 onChange={this.handleAdaRadio}/>
                                 NO
                         </Label>
@@ -107,7 +107,7 @@ class CreateLocation extends Component {
                                 type='radio'
                                 name='unisex'
                                 value='true'
-                                checked={unisex === true}
+                                checked={this.handleUnisexRadio.unisex === true}
                                 onChange={this.handleUnisexRadio}/>
                                 YES
                         </Label>
@@ -118,7 +118,7 @@ class CreateLocation extends Component {
                                 type='radio'
                                 name='unisex'
                                 value='false'
-                                checked={unisex === false}
+                                checked={this.handleUnisexRadio.unisex === false}
                                 onChange={this.handleUnisexRadio}/>
                                 NO
                         </Label>

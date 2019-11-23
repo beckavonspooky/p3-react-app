@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
-// import Register from './Register'
-import MapContainer from './Map/MapContainer'
-// import { Route, Switch } from 'react-router-dom'
-// import Header from './Header'
+import Register from './Components/Register'
+import Login from './Components/Login'
+import MapContainer from './Components/Map/MapContainer'
+import { Route, Switch } from 'react-router-dom'
+import Header from './Components/Header'
 import List from './RestroomsList';
+import LocationContainer from './Components/LocationContainer';
+import CreateLocation from './Components/CreateLocationForm';
 import './App.css';
 
-// const My404 = () => {
-//   return (
-//     <div>
-//       You are Lost 
-//     </div>
-//   )
-// };
+
+const My404 = () => {
+  return (
+    <div>
+      You are Lost 
+    </div>
+  )
+};
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       restrooms: [],
-      searchString: ''
+      searchString: '',
+      currentUser: {},
+      isLogged: false
+
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -34,7 +41,7 @@ class App extends Component {
       event.preventDefault()
       return searchValue;
   }
-  async triggetFetch() {
+  async triggerFetch() {
     const allRestrooms = await this.getRestrooms();
     this.setState({
       restrooms: allRestrooms
@@ -58,32 +65,80 @@ class App extends Component {
       return error;
     }
   }
+  doUpdateCurrentUser = user => {
+    this.setState({
+      currentUser: user
+    })
+  }
+  loginUser = user =>{
+    this.setState({
+      currentUser: user, 
+      isLogged: true
+    })
+  }
+  registerUser = user =>{
+    this.setState({
+      currentUser: user, 
+      isLogged: true
+    })
+  }
+  logoutUser = async ()=>{
+    try {
+      const logout = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/users/logout`)
+      const parsedLogout = await logout.json()
+      console.log(parsedLogout)
+      this.setState({
+        currentUser: {},
+        isLogged: false
+      })
+      console.log(logout)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   render() {
     return (
       <div className="App">
         <div className="container">
-        <div>
-                <form  onSubmit={this.handleSubmit}>
-                    <input
-                    type="text"
-                    onChange={this.handleChange}
-                    />
-                    <input type="submit" value="Submit" onClick={() => {this.triggetFetch()}}/>
-                </form>
+          <div>
+            <form  onSubmit={this.handleSubmit}>
+              <input type="text" onChange={this.handleChange}/>
+              <input type="submit" value="Submit" onClick={() => {this.triggerFetch()}}/>
+            </form>
           </div>
+          
           <div className="row">
-            <MapContainer restrooms={this.state.restrooms}/>
+            {/* <MapContainer restrooms={this.state.restrooms}/> */}
           </div>
+
           <div className="row">
             <List restrooms={this.state.restrooms} />
           </div>
+        
         </div>
 
-        
+        <div>
+            <Header currentUser={this.state.currentUser} isLogged={this.state.isLogged} logoutUser={this.logoutUser}/>
+            <button onClick={()=> this.addLocation}> Add Locations</button>
+            
+            <Switch>
+              <Route exact path="/" render={() => <Register doUpdateCurrentUser={this.doUpdateCurrentUser} registerUser={this.registerUser} loginUser={this.loginUser}/> } />
+              <Route exact path="/login" render={() => <Login loginUser= {this.loginUser}/> } />
+              <Route exact path="/locations" render={()=> <MapContainer restrooms={this.state.restrooms} />} />
+              <Route path="/locations" component={ LocationContainer } />
+              <button >
+              <Route exact path='/locations' component={CreateLocation} />
+               Add Locations</button>
+              
+              <Route component={My404} />
+            </Switch>
+          </div>
+          
+
       </div>
     )
   }
-
+}
 
 
 export default App;

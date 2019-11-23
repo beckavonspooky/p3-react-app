@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import { Label, Button, Form} from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
-
 class Login extends Component{
     constructor(props){
         super(props);
@@ -27,7 +26,6 @@ class Login extends Component{
                 'Content-Type': 'application/json'
             }
         });
-
         const parsedResponse = await loginResponse.json();
         if(parsedResponse.status.message === "Success"){
             console.log(parsedResponse)
@@ -40,13 +38,10 @@ class Login extends Component{
             <Form onSubmit={this.handleLoginSubmit}>
                 <Label>Username</Label>
                 <Form.Input type='text' name='username' onChange={this.handleLoginChange} />
-
                 <Label>Email</Label>
                 <Form.Input type='email' name='email' onChange={this.handleLoginChange} />
-
                 <Label>Password</Label>
                 <Form.Input type='password' name='password' onChange={this.handleLoginChange}/>
-
                 <Button type="Submit" color="blue">Login</Button>
             </Form>
         )

@@ -9,13 +9,21 @@ const List = ({restrooms}) => {
                 {restrooms.map((e, i) => {
                     return(
                         <div className="test" key={i}>
-                            <li >
-                                {e.name}
+                             <li >
+                                <b><u>{e.name}</u></b>
                                 <br/>
-                                {e.latitude}
+                                {e.street}, {e.city}, {e.state}
                                 <br/>
-                                {e.longitude}
-
+                                ADA: {e.accessible
+                                ? 'Yes'
+                                : 'No'}
+                                <br/>
+                                Unisex: {e.unisex
+                                ? 'Yes'
+                                : 'No'}
+                                <br/>
+                                Directions: {e.directions}
+                                <hr/>
                             </li>
                         </div>
                     )

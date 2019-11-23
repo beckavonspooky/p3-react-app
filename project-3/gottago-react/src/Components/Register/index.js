@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Label, Button } from 'semantic-ui-react';
 import {withRouter} from 'react-router-dom'
-
 class Register extends Component { 
     constructor(){
         super();
-
         this.state = {
             username: '', 
             password: '', 
@@ -28,7 +26,6 @@ class Register extends Component {
                 'Content-Type': 'application/json'
               }
         });
-
         const parsedResponse = await registerResponse.json();
         if(parsedResponse.status.message === 'It worked'){
             console.log(parsedResponse)
@@ -41,17 +38,13 @@ class Register extends Component {
             <Form onSubmit={this.handleSubmit}>
                 <Label>Username</Label>
                 <Form.Input type='text' name='username' onChange={this.handleChange} />
-
                 <Label>Email</Label>
                 <Form.Input type='email' name='email' onChange={this.handleChange} />
-
                 <Label>Password</Label>
                 <Form.Input type='password' name='password' onChange={this.handleChange}/>
-
                 <Button type="Submit" color="blue">Register</Button>
             </Form>
         )
     }
 }   
-
 export default withRouter(Register)

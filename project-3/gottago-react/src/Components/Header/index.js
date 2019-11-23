@@ -8,7 +8,6 @@ const HeaderComponent = (props) => {
             <List>
                 <List.Item>
                     <NavLink to ="/locations">Home</NavLink>
-                    
                     <NavLink to="/locations">Location</NavLink>
                     {
                         props.isLogged
@@ -19,7 +18,5 @@ const HeaderComponent = (props) => {
             </List>
         </Header>
     )
-
 }
-
 export default HeaderComponent;
