@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 // import Register from './Register'
 import MapContainer from './Map/MapContainer'
@@ -83,5 +84,6 @@ class App extends Component {
       </div>
     )
   }
-}
+
+
 export default App;
