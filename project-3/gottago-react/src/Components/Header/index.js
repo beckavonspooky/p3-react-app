@@ -1,22 +1,20 @@
-import React from 'react';
-import { Link }from 'react-router-dom';
+import React, {Component} from 'react';
+import { NavLink }from 'react-router-dom';
 import { Header, List } from 'semantic-ui-react';
 
-const HeaderComponent = () => {
+const HeaderComponent = (props) => {
     return (
         <Header>
             <List>
                 <List.Item>
-                    <Link to ="/">Home</Link>
-                </List.Item>
-                <List.Item>
-                    <Link to ="/user: id">Login</Link>
-                </List.Item>
-                <List.Item>
-                    <Link to ="/register">Register</Link>
-                </List.Item>
-                <List.Item>
-                    <Link to="/locations">Location</Link>
+                    <NavLink to ="/locations">Home</NavLink>
+                    
+                    <NavLink to="/locations">Location</NavLink>
+                    {
+                        props.isLogged
+                        ?   <button onClick={() => props.logoutUser()}>Logout</button>
+                        :   [<NavLink to ="/login">Login</NavLink>, <NavLink to ="/">Register</NavLink>]
+                    }
                 </List.Item>
             </List>
         </Header>
