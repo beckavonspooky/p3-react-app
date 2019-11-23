@@ -4,8 +4,8 @@
     const mapStyles = {
     map: {
         position: 'absolute',
-        width: '100%',
-        height: '70%'
+        width: '60%',
+        height: '60%'
     }
     };
     export class CurrentLocation extends React.Component {
@@ -105,8 +105,8 @@
 
         return (
         <div>
-            <div style={style} ref="map">
-            Loading map...
+            <div style={style} className="col-md-6" ref="map">
+                Loading map...
             </div>
             {this.renderChildren()}
         </div>
