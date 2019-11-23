@@ -1,6 +1,7 @@
 import React from 'react'
 import { Modal, Form, Button, Label, Header} from 'semantic-ui-react'
 
+
 const EditLocationModal = (props) => {
     console.log(props)
     return (
@@ -44,8 +45,8 @@ const EditLocationModal = (props) => {
                             <Form.Input 
                                 type='radio' 
                                 name='ada' 
-                                value='true' 
-                                checked={ada === true}
+                                value= {props.handleAdaRadio.ada === 'true'} 
+                                checked={props.handleAdaRadio.ada === true}
                                 onChange={props.handleAdaRadio} />
                                 YES
                         </Label>
@@ -56,7 +57,7 @@ const EditLocationModal = (props) => {
                                 type='radio'
                                 name='ada'
                                 value='false'
-                                checked={ada === false}
+                                checked={props.handleAdaRadio.ada === false}
                                 onChange={props.handleAdaRadio}/>
                                 NO
                         </Label>
@@ -68,7 +69,7 @@ const EditLocationModal = (props) => {
                                 type='radio'
                                 name='unisex'
                                 value='true'
-                                checked={unisex === true}
+                                checked={props.handleUnisexRadio.unisex === true}
                                 onChange={props.handleUnisexRadio}/>
                                 YES
                         </Label>
@@ -79,7 +80,7 @@ const EditLocationModal = (props) => {
                                 type='radio'
                                 name='unisex'
                                 value='false'
-                                checked={unisex === false}
+                                checked={props.handleUnisexRadio.unisex === false}
                                 onChange={props.handleUnisexRadio}/>
                                 NO
                         </Label>

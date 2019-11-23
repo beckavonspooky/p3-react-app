@@ -11,12 +11,13 @@ class MapContainer extends Component {
             selectedPlace: {}
         }
     }
-    onMarkerClick = (props, marker, e) =>
-    this.setState({
-        selectedPlace: props,
-        activeMarker: marker,
-        showingInfoWindow: true
-    });
+    onMarkerClick = (props, marker, e) => {
+        this.setState({
+            selectedPlace: props,
+            activeMarker: marker,
+            showingInfoWindow: true
+        });
+    }
 
     onClose = (props) => {
         if (this.state.showingInfoWindow) {
@@ -28,10 +29,37 @@ class MapContainer extends Component {
     }
 
     render() {
+        
         return (
             <div className="map">
                 <CurrentLocation centerAroundCurrentLocation google={this.props.google}>
                 <Marker onClick={this.onMarkerClick} name={'You are here'} />
+                {this.props.restrooms.map((e, i) => {
+                    // const location = {
+                    //     street: e.street,
+                    //     city: e.city,
+                    //     state: e.state,
+                    //     directions: e.directions,
+                    // }
+                    return (
+                        <Marker
+                        position={{
+                            lat: e.latitude,
+                            lng: e.longitude
+                        }} 
+                        icon={{
+                            url:"./img/gottago.png",
+                            scaledSize: {
+                                width: 40,
+                                height:40
+                            }
+                        }}
+                        onClick={this.onMarkerClick}
+                        name={e.name}
+
+                        />
+                    )
+                })}
                 <InfoWindow
                     marker={this.state.activeMarker}
                     visible={this.state.showingInfoWindow}

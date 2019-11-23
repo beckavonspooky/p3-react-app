@@ -18,114 +18,174 @@ class CreateLocation extends Component {
             unisex: null, 
             open_time: '', 
             closing_time: '', 
-            Directions: '' 
+            Directions: '', 
+            formActive: false
         };
         this.handleAdaRadio = this.handleAdaRadio.bind(this);
         this.handleUnisexRadio = this.handleUnisexRadio.bind(this);
     }
     // event handler for ADA compliance true/false 
-    handleAdaRadio =(e) => {
-        const isAda = event.currentTarget.value === 'true' ? true: false;
-        console.log('handle', ada)
-        this.setState({ada});
+    handleAdaRadio = (e) => {
+        const isAda = e.currentTarget.value === 'true' ? true: false;
+        console.log('handle', this.ada)
+        this.setState(this.ada);
     }
     handleUnisexRadio = (e) => {
-        const isUnisex = event.currentTarget.value === 'true' ? true: false;
-        console.log('handle', unisex)
-        this.setState({unisex});
+        const isUnisex = e.currentTarget.value === 'true' ? true: false;
+        console.log('handle', this.unisex)
+        this.setState(this.unisex);
     }
     handleChange = (e) => { 
         this.setState({[e.currentTarget.name]: e.currentTarget.value})
     }
+
+    renderButton = () => {
+        return (
+            <Button onClick={ () => this.showForm() }>Add Location</Button>
+        )
+    }
+
+    showForm = () => {
+        this.setState({formActive: true})
+    }
+
+    hideForm = () => {
+        this.setState({formActive: false})
+    }
+
+
+    checkFormDisplay = () => {
+        if(this.state.formActive === false) {
+            return this.renderButton() ;
+        }
+        else {
+            return this.renderForm()
+        }
+    }
+
+    newLocation = async (e, location) => {
+        // e.preventDefault();
+        console.log('HITTING')
+    
+        try {
+            const createdLocationResponse = await fetch
+            (process.env.REACT_APP_API_URL + '/api/v1/locations', {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify(location),
+                headers: {
+                    "Content-Type": "application/JSON"
+                }
+            });
+            const parsedLocation = await createdLocationResponse.json();
+            console.log(parsedLocation, "This is location response")
+            //put locations living in state into a new array,
+            this.setState({locations: [...this.state.locations, parsedLocation.data]})
+        } catch(err){
+            console.log("error")
+            console.log(err)
+
+    }
+    }
+
+    renderForm() {
+            return (
+                <Segment>
+                    
+                    <h4>Add a New Restroom</h4>
+                    <Form onSubmit={()=> {this.newLocation()}}>
+                        <Label>Restroom Name</Label>
+                        <Form.Input type='text' name='loc_name' value={this.state.loc_name} onChange={this.handleChange}/>
+    
+                        <Label>Street Number</Label>
+                        <Form.Input type='text' name='street_num' value={this.state.street_num} onChange={this.handleChange}/>
+    
+                        <Label>Street Name</Label>
+                        <Form.Input type='text' name='street_name' value={this.state.street_name} onChange={this.handleChange}/>
+    
+                        <Label>Apt or Unit #</Label>
+                        <Form.Input type='text' name='apt_unit_num' value={this.state.apt_unit_num} onChange={this.handleChange}/>
+    
+                        <Label>City</Label>
+                        <Form.Input type='text' name='city' value={this.state.city} onChange={this.handleChange}/>
+    
+                        <Label>State</Label>
+                        <Form.Input type='text' name='State' value={this.state.State} onChange={this.handleChange}/>
+    
+                        <Label>Zipcode</Label>
+                        <Form.Input type='text' name='zipcode' value={this.state.zipcode} onChange={this.handleChange}/>
+                        
+                        <Label>Opens at:</Label>
+                        <Form.Input type='text' name='open_time' value={this.state.open_time} onChange={this.handleChange}/>
+    
+                        <Label>Closes at:</Label>
+                        <Form.Input type='text' name='closing_time' value={this.state.closing_time} onChange={this.handleChange}/>
+    
+                        <Label>Directions</Label>
+                        <Form.Input type='text' name='Directions' value={this.state.Directions} onChange={this.handleChange}/>
+    
+                        
+                        <Label>ADA Compliant?</Label>
+                        <div className="ada-radio">
+                {/* rename classname to "radio" */}
+                            <Label>
+                                <Form.Input 
+                                    type='radio'
+                                    name='ada' 
+                                    value='true' 
+                                    checked={this.handleAdaRadio.ada === true}
+                                    // Checked should be passed in this.state
+                                    onChange={this.handleAdaRadio} />
+                                    YES
+                            </Label>
+                        </div>
+                        <div className="ada-radio">
+                            <Label>
+                                <Form.Input
+                                    type='radio'
+                                    name='ada'
+                                    value='false'
+                                    checked={this.handleAdaRadio.ada === false}
+                                    onChange={this.handleAdaRadio}/>
+                                    NO
+                            </Label>
+                        </div>
+                        <Label>Unisex?</Label>
+                        <div className="unisex-radio">
+                            <Label>
+                                <Form.Input 
+                                    type='radio'
+                                    name='unisex'
+                                    value='true'
+                                    checked={this.handleUnisexRadio.unisex === true}
+                                    onChange={this.handleUnisexRadio}/>
+                                    YES
+                            </Label>
+                        </div>
+                        <div className="unisex-radio">
+                            <Label>
+                                <Form.Input
+                                    type='radio'
+                                    name='unisex'
+                                    value='false'
+                                    checked={this.handleUnisexRadio.unisex === false}
+                                    onChange={this.handleUnisexRadio}/>
+                                    NO
+                            </Label>
+                        </div>
+                            <Button type='submit'>Submit</Button>
+                            <Button typy='discard' onClick={() => {this.hideForm()}}>Discard</Button>
+                    </Form>
+                </Segment>
+            )
+    }
+
     render(){
         const {ada} = this.state
         console.log(ada, true);
         const {unisex} = this.state
         return (
-            <Segment>
-                
-                <h4>Add a New Restroom</h4>
-                <Form onSubmit={(e) => this.props.addLocation(e, this.state)}>
-                    <Label>Restroom Name</Label>
-                    <Form.Input type='text' name='loc_name' value={this.state.loc_name} onChange={this.handleChange}/>
-
-                    <Label>Street Number</Label>
-                    <Form.Input type='text' name='street_num' value={this.state.street_num} onChange={this.handleChange}/>
-
-                    <Label>Street Name</Label>
-                    <Form.Input type='text' name='street_name' value={this.state.street_name} onChange={this.handleChange}/>
-
-                    <Label>Apt or Unit #</Label>
-                    <Form.Input type='text' name='apt_unit_num' value={this.state.apt_unit_num} onChange={this.handleChange}/>
-
-                    <Label>City</Label>
-                    <Form.Input type='text' name='city' value={this.state.city} onchange={this.handleChange}/>
-
-                    <Label>State</Label>
-                    <Form.Input type='text' name='State' value={this.state.State} onChange={this.handleChange}/>
-
-                    <Label>Zipcode</Label>
-                    <Form.Input type='text' name='zipcode' value={this.state.zipcode} onChange={this.handleChange}/>
-                    
-                    <Label>Opens at:</Label>
-                    <Form.Input type='text' name='open_time' value={this.state.open_time} onChange={this.handleChange}/>
-
-                    <Label>Closes at:</Label>
-                    <Form.Input type='text' name='closing_time' value={this.state.closing_time} onChange={this.handleChange}/>
-
-                    <Label>Directions</Label>
-                    <Form.Input type='text' name='Directions' value={this.state.Directions} onChange={this.handleChange}/>
-
-                    
-                    <Label>ADA Compliant?</Label>
-                    <div className="ada-radio">
-                        <Label>
-                            <Form.Input 
-                                type='radio' 
-                                name='ada' 
-                                value='true' 
-                                checked={ada === true}
-                                onChange={this.handleAdaRadio} />
-                                YES
-                        </Label>
-                    </div>
-                    <div className="ada-radio">
-                        <Label>
-                            <Form.Input
-                                type='radio'
-                                name='ada'
-                                value='false'
-                                checked={ada === false}
-                                onChange={this.handleAdaRadio}/>
-                                NO
-                        </Label>
-                    </div>
-                    <Label>Unisex?</Label>
-                    <div className="unisex-radio">
-                        <Label>
-                            <Form.Input 
-                                type='radio'
-                                name='unisex'
-                                value='true'
-                                checked={unisex === true}
-                                onChange={this.handleUnisexRadio}/>
-                                YES
-                        </Label>
-                    </div>
-                    <div className="unisex-radio">
-                        <Label>
-                            <Form.Input
-                                type='radio'
-                                name='unisex'
-                                value='false'
-                                checked={unisex === false}
-                                onChange={this.handleUnisexRadio}/>
-                                NO
-                        </Label>
-                    </div>
-                        <Button type='submit'>Submit</Button>
-                </Form>
-            </Segment>
+        <div>{this.checkFormDisplay()}</div>
         )
     }
 }
