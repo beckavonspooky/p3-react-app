@@ -50,7 +50,7 @@ addLocation = async (e, location) => {
 }
 
     try {
-        const createLocationResponse = await fetch
+        const createdLocationResponse = await fetch
         (process.env.REACT_APP_API_URL + '/api/v1/locations', {
             method: "POST",
             credentials: "include",
