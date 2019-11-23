@@ -26,7 +26,6 @@ class LocationContainer extends Component {
             },
             showEditModal: false
         }
-           
     }
     componentDidMount(){
     this.getLocations();
@@ -52,8 +51,7 @@ class LocationContainer extends Component {
         console.log('HITTING')
     
         try {
-            const createdLocationResponse = await fetch
-            (process.env.REACT_APP_API_URL + '/api/v1/locations', {
+            const createdLocationResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/locations/`, {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify(location),
@@ -81,7 +79,7 @@ class LocationContainer extends Component {
         const deleteLocationParsed = await deleteLocationResponse.json();
         console.log(deleteLocationResponse)
     // need to remove it from the state
-        this.setState({Locations: this.state.locations.filter((location) => location.id !== id)})
+        this.setState({Locations: this.props.locations.filter((location) => location.id !== id)})
         console.log(deleteLocationParsed, "Response from flask server")
     }
 

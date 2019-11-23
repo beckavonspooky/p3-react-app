@@ -119,8 +119,7 @@ class App extends Component {
 
         <div>
             <Header currentUser={this.state.currentUser} isLogged={this.state.isLogged} logoutUser={this.logoutUser}/>
-            <button onClick={()=> this.addLocation}> Add Locations</button>
-            
+            <CreateLocation />
             <Switch>
               <Route exact path="/" render={() => <Register doUpdateCurrentUser={this.doUpdateCurrentUser} registerUser={this.registerUser} loginUser={this.loginUser}/> } />
               <Route exact path="/login" render={() => <Login loginUser= {this.loginUser}/> } />
@@ -128,7 +127,7 @@ class App extends Component {
               <Route path="/locations" component={ LocationContainer } />
               <button >
               <Route exact path='/locations' component={CreateLocation} />
-               Add Locations</button>
+              Add Locations</button>
               
               <Route component={My404} />
             </Switch>
