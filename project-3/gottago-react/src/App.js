@@ -126,6 +126,7 @@ class App extends Component {
               <Route exact path="/login" render={() => <Login loginUser= {this.loginUser}/> } />
               <Route exact path="/locations" render={()=> <MapContainer restrooms={this.state.restrooms} />} />
               <Route path="/locations" component={ LocationContainer } />
+              
               <button >
               <Route exact path='/locations' component={CreateLocation} />
                Add Locations</button>

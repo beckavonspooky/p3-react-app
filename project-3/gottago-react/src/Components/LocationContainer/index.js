@@ -52,8 +52,7 @@ class LocationContainer extends Component {
         console.log('HITTING')
     
         try {
-            const createdLocationResponse = await fetch
-            (process.env.REACT_APP_API_URL + '/api/v1/locations', {
+            const createdLocationResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/locations', {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify(location),
