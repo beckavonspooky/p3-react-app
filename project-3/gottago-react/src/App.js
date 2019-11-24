@@ -13,7 +13,7 @@ import './App.css';
 const My404 = () => {
   return (
     <div>
-      You are Lost 
+      You are woefully lost. 
     </div>
   )
 };
