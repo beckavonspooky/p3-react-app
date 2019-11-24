@@ -2,9 +2,10 @@ import React, {Component} from 'react'
 import { Label, Button, Form} from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 class Login extends Component{
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state={
+            user_id: '',
             username: '',
             email: '',
             password: '',
@@ -29,7 +30,8 @@ class Login extends Component{
         const parsedResponse = await loginResponse.json();
         if(parsedResponse.status.message === "Success"){
             console.log(parsedResponse)
-            // this.props.doUpateCurrentUser(parsedResponse.data)
+            
+            this.props.doUpdateCurrentUser(parsedResponse.data)
             this.props.history.push('/locations');
         }
     }
