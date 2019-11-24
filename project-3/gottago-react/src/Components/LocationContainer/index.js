@@ -26,7 +26,6 @@ class LocationContainer extends Component {
             },
             showEditModal: false
         }
-           
     }
     componentDidMount(){
     this.getLocations();
@@ -52,12 +51,12 @@ class LocationContainer extends Component {
         console.log('HITTING')
     
         try {
-            const createdLocationResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/locations', {
-                method: "POST",
-                credentials: "include",
+            const createdLocationResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/locations/`, {
+                method: 'POST',
+                credentials: 'include',
                 body: JSON.stringify(location),
                 headers: {
-                    "Content-Type": "application/JSON"
+                    'Content-Type': 'application/JSON'
                 }
             });
             const parsedLocation = await createdLocationResponse.json();
@@ -72,7 +71,7 @@ class LocationContainer extends Component {
     }
     deleteLocation = async (id) => {
         console.log(id)
-        const deleteLocationResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/locations/' + id, {
+        const deleteLocationResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/locations/id`, {
             method: 'DELETE',
             credentials: 'include'
         });
@@ -80,7 +79,7 @@ class LocationContainer extends Component {
         const deleteLocationParsed = await deleteLocationResponse.json();
         console.log(deleteLocationResponse)
     // need to remove it from the state
-        this.setState({Locations: this.state.locations.filter((location) => location.id !== id)})
+        this.setState({Locations: this.props.locations.filter((location) => location.id !== id)})
         console.log(deleteLocationParsed, "Response from flask server")
     }
 
@@ -88,7 +87,7 @@ class LocationContainer extends Component {
         e.preventDefault();
         try {
 
-        const editLocation = await fetch(process.env.REACT_APP_API_URL + '/api/v1/locations' + this.state.locationToEdit.id, {
+        const editLocation = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/locations/`+ this.state.locationToEdit.id, {
             method: "PUT",
             body: JSON.stringify(this.state.locationToEdit),
             headers: {
@@ -135,7 +134,7 @@ class LocationContainer extends Component {
     handleAdaRadio =  (e) => {
         this.setState({
             handleAdaRadio: {
-                ...this.state.handleAdaRadio,
+                ...this.props.handleAdaRadio,
                 [e.currentTarget.name]: e.currentTarget.value
             }
         });
@@ -143,7 +142,7 @@ class LocationContainer extends Component {
     handleUnisexRadio = (e) => { 
         this.setState({
             handleUnisexRadio: { 
-                ...this.state.handleUnisexRadio, 
+                ...this.props.handleUnisexRadio, 
                 [e.currentTarget.name]: e.currentTarget.value
             }
         })
