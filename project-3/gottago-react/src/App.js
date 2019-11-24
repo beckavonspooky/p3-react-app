@@ -13,7 +13,7 @@ import './App.css';
 const My404 = () => {
   return (
     <div>
-      You are Lost 
+      You are woefully lost. 
     </div>
   )
 };
@@ -22,6 +22,7 @@ class App extends Component {
     super(props);
     this.state = {
       restrooms: [],
+      userRestrooms: [],
       searchString: '',
       currentUser: {},
       isLogged: false
@@ -91,7 +92,6 @@ class App extends Component {
         currentUser: {},
         isLogged: false
       })
-      console.log(logout)
     } catch (error) {
       console.log(error)
     }
@@ -119,14 +119,14 @@ class App extends Component {
 
         <div>
             <Header currentUser={this.state.currentUser} isLogged={this.state.isLogged} logoutUser={this.logoutUser}/>
-            <CreateLocation />
+            <CreateLocation currentUser={this.state.currentUser}/>
             <Switch>
               <Route exact path="/" render={() => <Register doUpdateCurrentUser={this.doUpdateCurrentUser} registerUser={this.registerUser} loginUser={this.loginUser}/> } />
-              <Route exact path="/login" render={() => <Login loginUser= {this.loginUser}/> } />
+              <Route exact path="/login" render={() => <Login loginUser= {this.loginUser} doUpdateCurrentUser={this.doUpdateCurrentUser}/> } />
               <Route exact path="/locations" render={()=> <MapContainer restrooms={this.state.restrooms} />} />
               <Route path="/locations" component={ LocationContainer } />
               <button >
-              <Route exact path='/locations' component={CreateLocation} />
+              <Route exact path='/locations' render={() => <CreateLocation user={this.state.currentUser}/> } />
               Add Locations</button>
               
               <Route component={My404} />

@@ -1,24 +1,26 @@
 import React, { Component } from 'react'
+
 import { Form, Button, Label, Segment } from 'semantic-ui-react'
-import LocationContainer from '../LocationContainer/index'
+
 class CreateLocation extends Component { 
     constructor(){
         super(); 
 
-        this.state = { 
+        this.state = {
+            user_id: '', 
             loc_name: '', 
             created_at: '', 
             street_num: '', 
             street_name: '', 
             apt_unit_num: '', 
             city: '', 
-            State: '',
+            state: '',
             zipcode: '', 
             ada: null, 
             unisex: null, 
             open_time: '', 
             closing_time: '', 
-            Directions: '', 
+            directions: '', 
             formActive: false
         };
         this.handleAdaRadio = this.handleAdaRadio.bind(this);
@@ -67,28 +69,29 @@ class CreateLocation extends Component {
 
     newLocation = async (e, location) => {
         console.log('Test')
+        console.log(location)
         // e.preventDefault();
         console.log('HITTING')
-    
-        try {
-            const createdLocationResponse = await fetch
-            (process.env.REACT_APP_API_URL + '/api/v1/locations', {
-                method: "POST",
-                credentials: "include",
-                body: JSON.stringify(location),
-                headers: {
-                    "Content-Type": "application/JSON"
-                }
-            });
-            const parsedLocation = await createdLocationResponse.json();
-            console.log(parsedLocation, "This is location response")
-            //put locations living in state into a new array,
-            this.setState({locations: [...this.state.locations, parsedLocation.data]})
-        } catch(err){
-            console.log("error")
-            console.log(err)
+        console.log(this.state)
+        console.log(this.currentUser, "<------- this is the current user")
+        
+    //     try {
+    //         const createdLocationResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/locations/', {
+    //             method: "POST",
+    //             credentials: "include",
+    //             body: JSON.stringify({...this.state, user_id: this.props.currentUser.id}),
+    //             headers: {
+    //                 "Content-Type": "application/JSON"
+    //             }
+    //         });
+    //         const parsedLocation = await createdLocationResponse.json();
+    //         console.log(parsedLocation, "This is location response")
+    //         //put locations living in state into a new array,
+    //         this.setState({locations: [...this.state.locations, parsedLocation.data]})
+    //     } catch(err){
+    //         console.log(err)
 
-    }
+    // }
     }
 
     renderForm() {
@@ -97,11 +100,13 @@ class CreateLocation extends Component {
                     
                     <h4>Add a New Restroom</h4>
                     {/* <Form onSubmit={(e) => this.props.addLocation(e, this.state)}> */}
-                    <Form onSubmit={() => {this.newLocation()}}>
+                    <Form onSubmit={(e) => {this.newLocation(e, this.state)}}>
                         <Label>Restroom Name</Label>
                         <Form.Input type='text' name='loc_name' value={this.state.loc_name} onChange={this.handleChange}/>
-    
-                        <Label>Street Number</Label>
+
+                        <Label>Address</Label>
+                        <Form.Input type='text' name='address' value={this.state.address} onChange={this.handleChange}/>
+                        {/* <Label>Street Number</Label>
                         <Form.Input type='text' name='street_num' value={this.state.street_num} onChange={this.handleChange}/>
     
                         <Label>Street Name</Label>
@@ -126,11 +131,11 @@ class CreateLocation extends Component {
                         <Form.Input type='text' name='closing_time' value={this.state.closing_time} onChange={this.handleChange}/>
     
                         <Label>Directions</Label>
-                        <Form.Input type='text' name='Directions' value={this.state.Directions} onChange={this.handleChange}/>
+                        <Form.Input type='text' name='Directions' value={this.state.Directions} onChange={this.handleChange}/> */}
     
                         
-                        <Label>ADA Compliant?</Label>
-                        <div className="ada-radio">
+                        {/* <Label>ADA Compliant?</Label>
+                        <div className="radio">
                             <Label>
                                 <Form.Input 
                                     type='radio'
@@ -141,7 +146,7 @@ class CreateLocation extends Component {
                                     YES
                             </Label>
                         </div>
-                        <div className="ada-radio">
+                        <div className="radio">
                             <Label>
                                 <Form.Input
                                     type='radio'
@@ -153,7 +158,7 @@ class CreateLocation extends Component {
                             </Label>
                         </div>
                         <Label>Unisex?</Label>
-                        <div className="unisex-radio">
+                        <div className="radio">
                             <Label>
                                 <Form.Input 
                                     type='radio'
@@ -164,7 +169,7 @@ class CreateLocation extends Component {
                                     YES
                             </Label>
                         </div>
-                        <div className="unisex-radio">
+                        <div className="radio">
                             <Label>
                                 <Form.Input
                                     type='radio'
@@ -174,7 +179,7 @@ class CreateLocation extends Component {
                                     onChange={this.handleUnisexRadio}/>
                                     NO
                             </Label>
-                        </div>
+                        </div> */}
                             <Button type='submit'>Submit</Button>
                             <Button typy='discard' onClick={() => {this.hideForm()}}>Discard</Button>
                     </Form>
