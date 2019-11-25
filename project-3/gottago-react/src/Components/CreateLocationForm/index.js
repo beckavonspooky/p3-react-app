@@ -9,19 +9,7 @@ class CreateLocation extends Component {
         this.state = {
             user_id: '', 
             loc_name: '', 
-            created_at: '', 
-            street_num: '', 
-            street_name: '', 
-            apt_unit_num: '', 
-            city: '', 
-            state: '',
-            zipcode: '', 
-            ada: null, 
-            unisex: null, 
-            open_time: '', 
-            closing_time: '', 
-            directions: '', 
-            formActive: false
+            address: ''
         };
         this.handleAdaRadio = this.handleAdaRadio.bind(this);
         this.handleUnisexRadio = this.handleUnisexRadio.bind(this);
@@ -68,30 +56,22 @@ class CreateLocation extends Component {
     }
 
     newLocation = async (e, location) => {
-        console.log('Test')
-        console.log(location)
-        // e.preventDefault();
-        console.log('HITTING')
-        console.log(this.state)
-        console.log(this.currentUser, "<------- this is the current user")
-        
-    //     try {
-    //         const createdLocationResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/locations/', {
-    //             method: "POST",
-    //             credentials: "include",
-    //             body: JSON.stringify({...this.state, user_id: this.props.currentUser.id}),
-    //             headers: {
-    //                 "Content-Type": "application/JSON"
-    //             }
-    //         });
-    //         const parsedLocation = await createdLocationResponse.json();
-    //         console.log(parsedLocation, "This is location response")
-    //         //put locations living in state into a new array,
-    //         this.setState({locations: [...this.state.locations, parsedLocation.data]})
-    //     } catch(err){
-    //         console.log(err)
+        try {
+            const createdLocationResponse = await fetch(process.env.REACT_APP_API_URL + '/api/v1/locations/', {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify({...this.state, user_id: this.props.currentUser.id}),
+                headers: {
+                    "Content-Type": "application/JSON"
+                }
+            });
+            const parsedLocation = await createdLocationResponse.json();
+            //put locations living in state into a new array,
+            this.props.updateUserLocations(parsedLocation)
+        } catch(err){
+            console.log(err)
 
-    // }
+        }
     }
 
     renderForm() {

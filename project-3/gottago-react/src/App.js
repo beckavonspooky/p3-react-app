@@ -8,6 +8,7 @@ import List from './RestroomsList';
 import LocationContainer from './Components/LocationContainer';
 import CreateLocation from './Components/CreateLocationForm';
 import './App.css';
+import { parse } from 'path';
 
 
 const My404 = () => {
@@ -66,6 +67,11 @@ class App extends Component {
       return error;
     }
   }
+  getUserRestrooms = async () => {
+    const userRestrooms = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/locations/`)
+    const parsedUserRestrooms = await userRestrooms.json();
+    console.log(parsedUserRestrooms)
+  }
   doUpdateCurrentUser = user => {
     this.setState({
       currentUser: user
@@ -119,17 +125,18 @@ class App extends Component {
 
         <div>
             <Header currentUser={this.state.currentUser} isLogged={this.state.isLogged} logoutUser={this.logoutUser}/>
-            <CreateLocation currentUser={this.state.currentUser}/>
             <Switch>
               <Route exact path="/" render={() => <Register doUpdateCurrentUser={this.doUpdateCurrentUser} registerUser={this.registerUser} loginUser={this.loginUser}/> } />
               <Route exact path="/login" render={() => <Login loginUser= {this.loginUser} doUpdateCurrentUser={this.doUpdateCurrentUser}/> } />
-              <Route exact path="/locations" render={()=> <MapContainer restrooms={this.state.restrooms} />} />
-              <Route path="/locations" component={ LocationContainer } />
               
-              <button >
-              <Route exact path='/locations' render={() => <CreateLocation user={this.state.currentUser}/> } />
-              Add Locations</button>
+              <Route exact path="/locations" render={()=> 
+              <div>
+              <MapContainer restrooms={this.state.restrooms} /> 
+              < LocationContainer getUserRestrooms={this.getUserRestrooms} currentUser={this.state.currentUser}/> 
               
+              </div>
+              } />
+
               <Route component={My404} />
             </Switch>
           </div>

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import LocationList from '../LocationList'
 import CreateLocationForm from '../CreateLocationForm';
 import { Grid, GridColumn } from 'semantic-ui-react';
 import EditLocationModal from '../EditLocationModal';
+import UserLocationsList from '../UserLocationsList';
 
 class LocationContainer extends Component {
     constructor(props){
@@ -10,28 +12,26 @@ class LocationContainer extends Component {
         this.state = {
             locations: [],
             locationToEdit: {
-                loc_name: '', 
-                created_at: '', 
-                street_num: '', 
-                street_name: '', 
-                apt_unit_num: '', 
-                city: '', 
-                State: '',
-                zipcode: '', 
-                ada: null, 
-                unisex: null, 
-                open_time: '', 
-                closing_time: '', 
-                Directions: ''
+                loc_name: '',
+                address: '', 
+            
             },
             showEditModal: false
         }
     }
     componentDidMount(){
-    this.getLocations();
+        this.getLocations();
+    }
+    updateUserLocations = (location) =>{
+        const userLocations = [...this.state.locations, location.data]
+        console.log(userLocations, 'We be hitting it boyyyy')
+        this.setState=({
+            locations: userLocations
+        })
+        this.props.history.push('/locations')
+
     }
     getLocations = async () => {
-        
         try {
             const locations = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/locations/`, {
                 method: 'GET',
@@ -131,39 +131,23 @@ class LocationContainer extends Component {
             }
         });
     }
-    handleAdaRadio =  (e) => {
-        this.setState({
-            handleAdaRadio: {
-                ...this.props.handleAdaRadio,
-                [e.currentTarget.name]: e.currentTarget.value
-            }
-        });
-    }
-    handleUnisexRadio = (e) => { 
-        this.setState({
-            handleUnisexRadio: { 
-                ...this.props.handleUnisexRadio, 
-                [e.currentTarget.name]: e.currentTarget.value
-            }
-        })
-    }
-
-
+    
     render(){
         return (
             <Grid columns={2} divded textAlign="center" style={{ height: "100%" }} verticalAlign ="top" stackable>
                 <Grid.Row>
                     <Grid.Column>
-                        <LocationList locations={this.state.locations} deleteLocation={this.deleteLocation}
-                        openAndEdit={this.openAndEdit}/>
+                        {/* <LocationList locations={this.state.locations} deleteLocation={this.deleteLocation}
+                        openAndEdit={this.openAndEdit}/> */}
                     </Grid.Column>
                     <Grid.Column>
-                        <CreateLocationForm addLocation={this.addLocation}/>
+                        <CreateLocationForm addLocation={this.addLocation} currentUser={this.props.currentUser} updateUserLocations={this.updateUserLocations}/>
                     </Grid.Column>
                     <Grid.Column>
-                        <EditLocationModal handleEditChange={this.handleEditChange} open=
+                        <UserLocationsList locations= {this.state.locations}/>
+                        {/* <EditLocationModal handleEditChange={this.handleEditChange} open=
                         {this.state.showEditModal} locationToEdit={this.state.locationToEdit}
-                        closeAndEdit={this.closeAndEdit} handleAdaRadio={this.state.handleAdaRadio}/>
+                        closeAndEdit={this.closeAndEdit} handleAdaRadio={this.state.handleAdaRadio}/> */}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
@@ -174,4 +158,4 @@ class LocationContainer extends Component {
 
 
 
-export default LocationContainer
+export default withRouter(LocationContainer)
