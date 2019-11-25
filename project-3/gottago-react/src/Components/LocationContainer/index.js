@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
-import LocationList from '../LocationList'
 import CreateLocationForm from '../CreateLocationForm';
 import { Grid, GridColumn } from 'semantic-ui-react';
 import EditLocationModal from '../EditLocationModal';
 import UserLocationsList from '../UserLocationsList';
+import { thisExpression } from '@babel/types';
 
 class LocationContainer extends Component {
     constructor(props){
@@ -25,10 +25,9 @@ class LocationContainer extends Component {
     updateUserLocations = (location) =>{
         const userLocations = [...this.state.locations, location.data]
         console.log(userLocations, 'We be hitting it boyyyy')
-        this.setState=({
+        this.setState({
             locations: userLocations
         })
-        this.props.history.push('/locations')
 
     }
     getLocations = async () => {
@@ -67,87 +66,101 @@ class LocationContainer extends Component {
             console.log("error")
             console.log(err)
 
-    }
-    }
-    deleteLocation = async (id) => {
-        console.log(id)
-        const deleteLocationResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/locations/id`, {
-            method: 'DELETE',
-            credentials: 'include'
-        });
-        //parsed response from location
-        const deleteLocationParsed = await deleteLocationResponse.json();
-        console.log(deleteLocationResponse)
-    // need to remove it from the state
-        this.setState({Locations: this.props.locations.filter((location) => location.id !== id)})
-        console.log(deleteLocationParsed, "Response from flask server")
-    }
-
-    closeAndEdit = async (e) => {
-        e.preventDefault();
-        try {
-
-        const editLocation = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/locations/`+ this.state.locationToEdit.id, {
-            method: "PUT",
-            body: JSON.stringify(this.state.locationToEdit),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-        const editLocationParsed = await editLocation.json();
-        console.log(editLocationParsed, "parsed location")
-        //new location array with an edit
-        const newLocationArrayWithEdit = this.state.location.map((location) => {
-            if(location.id === editLocationParsed.data.id){
-                location = editLocationParsed.data
-            }
-            return location
-        });
-        this.setState({
-            showEditModal: false,
-            locations: newLocationArrayWithEdit
-        });
-
-        } catch(err){
-            console.log(err)
         }
-    }
-    openAndEdit = (locationFromTheList) => {
-        console.log(locationFromTheList, " locationToEdit ");
 
+    }
+    openUserLocAndEdit = (userLocationsList)=>{
+        userLocationsList.user_id = userLocationsList.user_id.id
+        console.log(userLocationsList, "here is the location")
         this.setState({
             showEditModal: true,
             locationToEdit: {
-                ...locationFromTheList
+                ...userLocationsList
             }
         })
-
     }
-    handleEditChange = (e) => {
+    handleEditChange = e =>
         this.setState({
             locationToEdit: {
                 ...this.state.locationToEdit,
                 [e.currentTarget.name]: e.currentTarget.value
             }
-        });
+        })
+    closeAndEdit = async (e) => {
+            e.preventDefault();
+            try {
+            
+            const editResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/locations/${this.state.locationToEdit.id}`, {
+                method: 'PUT',
+                body: JSON.stringify(this.state.locationToEdit),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            const editResponseParsed = await editResponse.json();
+            console.log(editResponseParsed, "<=====parsed location")
+            //new location array with an edit
+            
+            const newLocationArrayWithEdit = this.state.locations.map(location => {
+                if(location.id === editResponseParsed.data.id){
+                    location = editResponseParsed.data
+                }
+                return location 
+            });
+            console.log(editResponseParsed, '<====parsed edit')
+            this.setState({
+                showEditModal: false,
+                locations: newLocationArrayWithEdit
+            });
+            
+            } catch(err){
+                console.log(err)
+            }
     }
-    
+    deleteLocation = async (id) => {
+        console.log(id)
+        
+        const deleteLocationResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/locations/${id}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+        //parsed response from location
+        const deleteLocationParsed = await deleteLocationResponse.json();
+        console.log(deleteLocationResponse, 'hi delete loc')
+        console.log(this.state.locations, '<<<<<---- before ')
+        // need to remove it from the state
+
+        this.setState({
+            locations: this.state.locations.filter((location) => location.id !== id)})
+        console.log(deleteLocationParsed, "Response from flask server")
+        console.log(this.state.locations, '<<<<<---- after')
+    }
+
     render(){
+        console.log(this.state.locations)
+        console.log(this.state)
         return (
-            <Grid columns={2} divded textAlign="center" style={{ height: "100%" }} verticalAlign ="top" stackable>
+            <Grid columns={2} divided textAlign="center" style={{ height: "100%" }} verticalAlign ="top" stackable>
                 <Grid.Row>
                     <Grid.Column>
-                        {/* <LocationList locations={this.state.locations} deleteLocation={this.deleteLocation}
-                        openAndEdit={this.openAndEdit}/> */}
+                        
                     </Grid.Column>
                     <Grid.Column>
-                        <CreateLocationForm addLocation={this.addLocation} currentUser={this.props.currentUser} updateUserLocations={this.updateUserLocations}/>
+                        <CreateLocationForm 
+                        addLocation={this.addLocation} currentUser={this.props.currentUser} updateUserLocations={this.updateUserLocations}/>
                     </Grid.Column>
                     <Grid.Column>
-                        <UserLocationsList locations= {this.state.locations}/>
-                        {/* <EditLocationModal handleEditChange={this.handleEditChange} open=
-                        {this.state.showEditModal} locationToEdit={this.state.locationToEdit}
-                        closeAndEdit={this.closeAndEdit} handleAdaRadio={this.state.handleAdaRadio}/> */}
+                        <UserLocationsList 
+                        locations= {this.state.locations} 
+                        updateUserLocations={this.updateUserLocations}openUserLocAndEdit= {this.openUserLocAndEdit}
+                        deleteLocation={this.deleteLocation}
+                        />
+                        <EditLocationModal 
+                        locationToEdit={this.state.locationToEdit} 
+                        showEditModal={this.state.showEditModal}
+                        handleEditChange={this.handleEditChange}
+                        closeAndEdit={this.closeAndEdit}
+                        />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

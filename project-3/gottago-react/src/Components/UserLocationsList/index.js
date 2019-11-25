@@ -15,10 +15,10 @@ function UserLocationsList(props) {
                         </List.Description>
                     </List.Header>
                 </List.Item>
-                
-                <List.Content extra>
-                    <Button>Delete Location</Button>
-                    <Button>Edit Location</Button>
+
+                <List.Content>
+                    <Button onClick={()=> props.deleteLocation(location.id)} >Delete Location</Button>
+                    <Button onClick={() => props.openUserLocAndEdit(location)}>Edit Location</Button>
                 </List.Content>
 
             </List>
