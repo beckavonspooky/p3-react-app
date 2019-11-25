@@ -140,13 +140,13 @@ class LocationContainer extends Component {
         console.log(this.state.locations)
         console.log(this.state)
         return (
-            <Grid columns={2} divided textAlign="center" style={{ height: "100%" }} verticalAlign ="top" stackable>
+            <Grid columns={1} divided textAlign="center" style={{ height: "100%" }} verticalAlign ="top" stackable ="false">
                 <Grid.Row>
                     <Grid.Column>
                         
                     </Grid.Column>
                     <Grid.Column>
-                        <CreateLocationForm 
+                        <CreateLocationForm
                         addLocation={this.addLocation} currentUser={this.props.currentUser} updateUserLocations={this.updateUserLocations}/>
                     </Grid.Column>
                     <Grid.Column>
