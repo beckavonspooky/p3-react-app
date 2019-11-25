@@ -12,7 +12,6 @@ function LocationList(props){
                     <List.Header>Address
                         <List.Description>
                             {location.address}
-                            
                         </List.Description>
                     </List.Header>
             
