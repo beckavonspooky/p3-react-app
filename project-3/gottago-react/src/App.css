@@ -1,3 +1,6 @@
+html, body {
+background-color: #AC9FBB;
+}
 .App {
   text-align: center;
 }
@@ -65,7 +68,7 @@ ul {
   border: none;
 }
 
-.topnav .search-container button {
+.topnav .search-container button .addlocbutton {
   float: right;
   padding: 6px;
   margin-top: 8px;
@@ -78,6 +81,32 @@ ul {
 
 .topnav .search-container button:hover {
   background: #ccc;
+
+}
+.ui.segment {
+    position: absolute;
+    right: 5%; 
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+    margin: 1rem 0;
+    padding: 1em 1em;
+    border-radius: .28571429rem;
+    border: 1px solid rgba(34,36,38,.15);
+}
+
+.ui.segment:last-child {
+  z-index: 100;
+}
+
+.userLocationList {
+  position: relative;
+  top: 70%;
+}
+
+.parent-div {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 /* @media screen and (max-width: 600px) {

@@ -18,7 +18,7 @@ class CreateLocation extends Component {
 
     renderButton = () => {
         return (
-            <Button onClick={ () => this.showForm() }>Add Location</Button>
+            <Button class="addlocbutton" onClick={ () => this.showForm() }>Add Location</Button>
         )
     }
 
@@ -28,7 +28,7 @@ class CreateLocation extends Component {
 
     hideForm = () => {
         this.setState({formActive: false})
-        console.log(this.addLocation())
+        
     }
 
     checkFormDisplay = () => {
@@ -62,27 +62,24 @@ class CreateLocation extends Component {
     renderForm() {
             return (
                 <Segment>
-                    
-                    <h4>Add a New Restroom</h4>
-                    {/* <Form onSubmit={(e) => this.props.addLocation(e, this.state)}> */}
-                    <Form onSubmit={(e) => {this.newLocation(e, this.state)}}>
-                        <Label>Restroom Name</Label>
-                        <Form.Input type='text' name='loc_name' value={this.state.loc_name} onChange={this.handleChange}/>
+                    <div className="floaded">
+                        <h4>Add a New Restroom</h4>
+                        <Form onSubmit={(e) => {this.newLocation(e, this.state)}}>
+                            <Label>Restroom Name</Label>
+                            <Form.Input type='text' name='loc_name' value={this.state.loc_name} onChange={this.handleChange}/>
 
-                        <Label>Address</Label>
-                        <Form.Input type='text' name='address' value={this.state.address} onChange={this.handleChange}/>
-                     
-                            <Button type='submit'>Submit</Button>
-                            <Button typy='discard' onClick={() => {this.hideForm()}}>Discard</Button>
-                    </Form>
+                            <Label>Address</Label>
+                            <Form.Input type='text' name='address' value={this.state.address} onChange={this.handleChange}/>
+                        
+                                <Button type='submit'>Submit</Button>
+                                <Button typy='discard' onClick={() => {this.hideForm()}}>Discard</Button>
+                        </Form>
+                    </div>
                 </Segment>
             )
     }
 
     render(){
-        const {ada} = this.state
-        console.log(ada, true);
-        const {unisex} = this.state
         return (
         <div>{this.checkFormDisplay()}</div>
         )
