@@ -6,6 +6,7 @@ function UserLocationsList(props) {
     const locations = props.locations.map(location =>{
 
         return(
+            <div className="userLocationList">
             <List key={location.id}>
                 <List.Item>
                     <List.Header>{location.loc_name}</List.Header>
@@ -22,6 +23,7 @@ function UserLocationsList(props) {
                 </List.Content>
 
             </List>
+            </div>
         )
 
     })

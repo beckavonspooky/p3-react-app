@@ -6,9 +6,8 @@ import { Route, Switch } from 'react-router-dom'
 import Header from './Components/Header'
 import List from './RestroomsList';
 import LocationContainer from './Components/LocationContainer';
-import CreateLocation from './Components/CreateLocationForm';
 import './App.css';
-import { parse } from 'path';
+
 
 
 const My404 = () => {
@@ -112,11 +111,6 @@ class App extends Component {
               <input type="submit" value="Submit" onClick={() => {this.triggerFetch()}}/>
             </form>
           </div>
-          
-          <div className="row">
-            {/* <MapContainer restrooms={this.state.restrooms}/> */}
-          </div>
-
           <div className="row">
             <List restrooms={this.state.restrooms} />
           </div>
@@ -130,10 +124,13 @@ class App extends Component {
               <Route exact path="/login" render={() => <Login loginUser= {this.loginUser} doUpdateCurrentUser={this.doUpdateCurrentUser}/> } />
               
               <Route exact path="/locations" render={()=> 
-              <div>
-              <MapContainer restrooms={this.state.restrooms} /> 
-              < LocationContainer getUserRestrooms={this.getUserRestrooms} currentUser={this.state.currentUser}/> 
-              
+              <div className="parent-div">
+                <div className="map-div">
+                  <MapContainer restrooms={this.state.restrooms} /> 
+                </div>
+                <div className="location-div">
+                  <LocationContainer getUserRestrooms={this.getUserRestrooms} currentUser={this.state.currentUser}/> 
+                </div>
               </div>
               } />
 
