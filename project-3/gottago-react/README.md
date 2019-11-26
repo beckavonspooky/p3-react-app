@@ -30,10 +30,12 @@
 * Python
 * Flask
 * SQLite3
+* Semantic-UI-React
 
 ![Image of game play screen](https://i.imgur.com/xXXz0Fy.png)
+
 ## Next Steps:
-* Find a way to gerate pins of the user created locations to the Google maps.
-* Add more styling to the overall styling of the page. 
-* Add 
+* Find a way to generate pins of user created locations to the Google maps.
+* Add more styling to improve the UI.
+* Add add a directtions button to when a user clicks on a name, it links you to Google maps. 
 
