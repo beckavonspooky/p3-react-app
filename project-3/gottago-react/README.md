@@ -1,68 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Gotta-Go-Now
 
-## Available Scripts
+![Image of game play screen](https://i.imgur.com/9IdclNn.png)
 
-In the project directory, you can run:
 
-### `npm start`
+## Description
+* Gotta-Go-Now is an application which allows the LGBTQIA+ community find local restrooms that are identity accepting. 
+* Users can search for anonymously for local business that have LGBTQIA+ friendly spaces. 
+* If a user finds a restroom not listed, they can add it to their list. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting Started
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+![Image of game play screen](https://i.imgur.com/xX8F8Lx.png)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[Click To Play!]()
+* A user can onto our app and search by city the nearset restrooms to them that are LGBTQIA+ friendly. 
+* Once a search is made, a list of all the restrooms will generate and a pin will deploy on a map.  
+* The user can then grab the address and go do their business. 
+* If a user wants to add a new location, they can register and create their person list of restrooms they found. 
+* Any information a register user adds, they can delete and edit. 
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies Used:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+* HTML
+* CSS
+* Javascript
+* React
+* Python
+* Flask
+* SQLite3
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Image of game play screen](https://i.imgur.com/xX8F8Lx.png)
+## Next Steps:
+* Find a way to gerate pins of the user created locations to the Google maps.
+* Add more styling to the overall styling of the page. 
+* Add 
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
