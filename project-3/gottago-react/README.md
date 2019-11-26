@@ -31,7 +31,7 @@
 * Flask
 * SQLite3
 
-![Image of game play screen](https://i.imgur.com/xX8F8Lx.png)
+![Image of game play screen](https://i.imgur.com/xXXz0Fy.png)
 ## Next Steps:
 * Find a way to gerate pins of the user created locations to the Google maps.
 * Add more styling to the overall styling of the page. 
