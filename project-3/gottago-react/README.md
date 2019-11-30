@@ -1,6 +1,6 @@
 ## Gotta-Go-Now
 
-![Image of game play screen](https://imgur.com/lTP9wbO)
+![Image of game play screen](https://i.imgur.com/MKH355V.png)
 
 
 ## Description
@@ -10,7 +10,7 @@
 
 ## Getting Started
 
-![Image of game play screen](https://imgur.com/3jCgrGB)
+![Image of game play screen](https://i.imgur.com/3jCgrGB.png)
 
 
 [Click To View](https://gottagonow.herokuapp.com/locations)
@@ -32,7 +32,7 @@
 * SQLite3
 * Semantic-UI-React
 
-![Image of game play screen](https://imgur.com/MKH355V)
+![Image of game play screen](https://i.imgur.com/lTP9wbO.png)
 
 ## Next Steps:
 * Find a way to generate pins of user created locations to the Google maps.
