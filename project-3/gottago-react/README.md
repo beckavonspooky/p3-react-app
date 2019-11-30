@@ -1,6 +1,6 @@
 ## Gotta-Go-Now
 
-![Image of game play screen](https://i.imgur.com/9IdclNn.png)
+![Image of game play screen](https://imgur.com/lTP9wbO)
 
 
 ## Description
@@ -10,10 +10,10 @@
 
 ## Getting Started
 
-![Image of game play screen](https://i.imgur.com/xX8F8Lx.png)
+![Image of game play screen](https://imgur.com/3jCgrGB)
 
 
-[Click To Play!]()
+[Click To View](https://gottagonow.herokuapp.com/locations)
 * A user can onto our app and search by city the nearset restrooms to them that are LGBTQIA+ friendly. 
 * Once a search is made, a list of all the restrooms will generate and a pin will deploy on a map.  
 * The user can then grab the address and go do their business. 
@@ -32,7 +32,7 @@
 * SQLite3
 * Semantic-UI-React
 
-![Image of game play screen](https://i.imgur.com/xXXz0Fy.png)
+![Image of game play screen](https://imgur.com/MKH355V)
 
 ## Next Steps:
 * Find a way to generate pins of user created locations to the Google maps.
