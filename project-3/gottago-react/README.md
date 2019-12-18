@@ -31,6 +31,7 @@
 * Flask
 * SQLite3
 * Semantic-UI-React
+* Adobe Xd
 
 ![Image of game play screen](https://i.imgur.com/lTP9wbO.png)
 
